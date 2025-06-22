@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="github-compare.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitHub Compare</title>
+  </head>
+  <body>
+    <main class="container">
+      <header>
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          "
+        >
+          <hgroup>
+            <h1>
+              <img style="width: 1em;" src="github-compare.svg" alt="Logo" />
+              GitHub Compare
+            </h1>
+            <p>Compare release notes between two releases</p>
+          </hgroup>
+          <div>
+            <label class="inline-content inline-content-spacer">
+              Show Pre-releases
+              <input name="show-prereleases" type="checkbox" role="switch" />
+            </label>
+            <button name="theme" class="secondary" title=""></button>
+          </div>
+        </div>
+      </header>
+
+      <section>
+        <fieldset class="grid">
+          <input
+            name="repo"
+            id="repo-input"
+            placeholder="owner/repo"
+            aria-label="Repository"
+            autocomplete="off"
+            list="repos"
+          />
+          <datalist id="repos"> </datalist>
+          <select name="from" aria-label="Select your version" required>
+            <option selected disabled value="">
+              No versions available...
+            </option>
+          </select>
+
+          <select name="to" aria-label="Select your version" required>
+            <option selected disabled value="">
+              No versions available...
+            </option>
+          </select>
+
+          <input name="compare" type="submit" value="Compare" />
+        </fieldset>
+      </section>
+
+      <section id="results"></section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/datalist-ajax/dist/datalist-ajax.min.js"></script>
+    <script type="module" src="/src/main.mjs"></script>
+  </body>
+</html>

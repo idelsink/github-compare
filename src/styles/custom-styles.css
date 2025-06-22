@@ -1,0 +1,11 @@
+.inline-content {
+  display: inline;
+}
+
+.inline-content-spacer {
+  gap: 0.5rem;
+}
+img.marked-emoji-img {
+  display: inline-block;
+  height: 1em;
+}
