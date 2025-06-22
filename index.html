@@ -9,29 +9,29 @@
   <body>
     <main class="container">
       <header>
-        <div
-          style="
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-          "
-        >
-          <hgroup>
-            <h1>
-              <img style="width: 1em;" src="github-compare.svg" alt="Logo" />
-              GitHub Compare
-            </h1>
-            <p>Compare release notes between two releases</p>
-          </hgroup>
-          <div>
-            <label class="inline-content inline-content-spacer">
-              Show Pre-releases
-              <input name="show-prereleases" type="checkbox" role="switch" />
-            </label>
-            <button name="theme" class="secondary" title=""></button>
-          </div>
-        </div>
+        <hgroup>
+          <h1>
+            GitHub
+            <img src="github-compare.svg" alt="" class="inline-icon" />
+            Compare
+          </h1>
+          <p>Compare release notes</p>
+        </hgroup>
       </header>
+
+      <details>
+        <summary>⚙️ Settings</summary>
+        <fieldset class="grid">
+          <label>
+            Switch theme
+            <button name="theme" class="secondary" title="">🌓</button>
+          </label>
+          <label>
+            Show Pre-releases
+            <input name="show-prereleases" type="checkbox" role="switch" />
+          </label>
+        </fieldset>
+      </details>
 
       <section>
         <fieldset class="grid">

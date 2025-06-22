@@ -9,3 +9,8 @@ img.marked-emoji-img {
   display: inline-block;
   height: 1em;
 }
+
+.inline-icon {
+  height: 1em;
+  vertical-align: middle;
+}
