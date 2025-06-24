@@ -94,10 +94,10 @@ function alertArticle(content, level = "info") {
 }
 
 function placeholderArticle() {
-  const body = markdownParse(placeholderMarkdown);
+  let body = markdownParse(placeholderMarkdown);
 
   // Make sure to use links relevant to this page
-  body.replaceAll(
+  body = body.replaceAll(
     "https://example.com/",
     window.location.origin + window.location.pathname
   );
