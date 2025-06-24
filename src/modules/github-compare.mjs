@@ -6,6 +6,7 @@ import {
   releaseArticle,
   alertArticle,
   compareHeader,
+  placeholderArticle,
 } from "./html-templates.mjs";
 
 const octokit = new Octokit({});
@@ -28,6 +29,7 @@ function init(settings_ = {}) {
   Object.assign(settings, settings_);
   setupEventListeners();
   initUrlSearchParams();
+  results.innerHTML = placeholderArticle();
 }
 
 function updateUrl() {

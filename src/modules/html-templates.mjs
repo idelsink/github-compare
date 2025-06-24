@@ -1,6 +1,7 @@
 import emojis from "./emojis.mjs";
 import { markdownParse } from "./markdown.mjs";
 import "@github/relative-time-element";
+import placeholderMarkdown from "./../../docs/getting-started.md?raw";
 
 function compareHeader({ releases, from, to, repo }) {
   const header = `
@@ -92,4 +93,21 @@ function alertArticle(content, level = "info") {
   return article;
 }
 
-export { releaseArticle, alertArticle, compareHeader };
+function placeholderArticle() {
+  const body = markdownParse(placeholderMarkdown);
+
+  // Make sure to use links relevant to this page
+  body.replaceAll(
+    "https://example.com/",
+    window.location.origin + window.location.pathname
+  );
+
+  const article = `
+    <article>
+      ${body}
+    </article>
+  `;
+  return article;
+}
+
+export { releaseArticle, alertArticle, compareHeader, placeholderArticle };
