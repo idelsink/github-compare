@@ -1,0 +1,8 @@
+repos:
+  - repo: https://github.com/thlorenz/doctoc
+    rev: 68f070c98b9a053eabfa7f8899d1f42b9919f98c # v2.2.0 - git ls-remote --tags https://github.com/thlorenz/doctoc
+    hooks:
+      - id: doctoc
+        args:
+          - --notitle
+          - --update-only
