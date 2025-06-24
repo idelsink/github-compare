@@ -60,7 +60,7 @@ function initUrlSearchParams() {
     settings.elements.to.add(new Option(to));
     settings.elements.to.value = to;
   }
-  if (prereleases) {
+  if (prereleases == "true") {
     settings.elements.showPrereleases.checked = prereleases;
   }
   if (repo && from && to) {
