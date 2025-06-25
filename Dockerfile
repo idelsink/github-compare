@@ -1,5 +1,5 @@
 # Build stage
-FROM docker.io/library/node:22.17.0-alpine3.22 AS builder
+FROM docker.io/library/node:22.17.0-alpine3.21 AS builder
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
