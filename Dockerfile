@@ -7,7 +7,7 @@ COPY . .
 RUN npm run build
 
 # Production stage
-FROM docker.io/library/nginx:alpine
+FROM docker.io/library/nginx:1.29.0-alpine
 
 # Add metadata labels
 LABEL org.opencontainers.image.title="GitHub Compare"
