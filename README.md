@@ -1,4 +1,4 @@
-# GitHub Compare
+# GitHub<img src="public/github-compare.svg" height="28px">Compare
 
 A simple web application to compare release notes between two GitHub releases. Easily visualize what's changed between versions of any public GitHub repository.
 
