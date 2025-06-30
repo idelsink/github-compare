@@ -1,5 +1,6 @@
 import { marked } from "marked";
 import DOMPurify from "dompurify";
+import markedAlert from "marked-alert";
 import { markedEmoji } from "marked-emoji";
 import emojis from "./emojis.mjs";
 
@@ -17,6 +18,8 @@ marked.use(
     renderer: (token) => token.emoji,
   })
 );
+
+marked.use(markedAlert());
 
 function markdownParse(text) {
   if (!text || typeof text !== "string") {

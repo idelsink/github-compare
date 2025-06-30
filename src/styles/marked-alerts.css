@@ -1,0 +1,61 @@
+/*
+ * Marked-Alert Extension Styles for Pico CSS
+ *
+ * Marked Alerts exports the following classes:
+ *
+ * markdown-alert,
+ * markdown-alert-<alert variant> and
+ * markdown-alert-title
+ */
+
+:root {
+  --marked-alerts-note-color: #0969da;
+  --marked-alerts-tip-color: #22c55e;
+  --marked-alerts-important-color: #8b5cf6;
+  --marked-alerts-warning-color: #f59e0b;
+  --marked-alerts-caution-color: #ef4444;
+}
+
+.markdown-alert {
+  margin: var(--pico-spacing) 0;
+  padding: calc(var(--pico-spacing) / 4) calc(var(--pico-spacing) / 2);
+  border-left: 0.25em solid;
+  border-radius: 0.25rem;
+}
+
+.markdown-alert-title {
+  margin: 0 0 0.5rem 0;
+  --pico-font-weight: 700;
+}
+
+.markdown-alert-note {
+  border-left-color: var(--marked-alerts-note-color);
+}
+.markdown-alert-tip {
+  border-left-color: var(--marked-alerts-tip-color);
+}
+.markdown-alert-important {
+  border-left-color: var(--marked-alerts-important-color);
+}
+.markdown-alert-warning {
+  border-left-color: var(--marked-alerts-warning-color);
+}
+.markdown-alert-caution {
+  border-left-color: var(--marked-alerts-caution-color);
+}
+
+.markdown-alert-note .markdown-alert-title {
+  color: var(--marked-alerts-note-color);
+}
+.markdown-alert-tip .markdown-alert-title {
+  color: var(--marked-alerts-tip-color);
+}
+.markdown-alert-important .markdown-alert-title {
+  color: var(--marked-alerts-important-color);
+}
+.markdown-alert-warning .markdown-alert-title {
+  color: var(--marked-alerts-warning-color);
+}
+.markdown-alert-caution .markdown-alert-title {
+  color: var(--marked-alerts-caution-color);
+}

@@ -18,6 +18,7 @@
     "dompurify": "^3.2.6",
     "gemoji": "^8.1.0",
     "marked": "^15.0.12",
+    "marked-alert": "^2.1.2",
     "marked-emoji": "^2.0.0",
     "octokit": "^5.0.3"
   }
