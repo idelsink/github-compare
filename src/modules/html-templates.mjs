@@ -58,7 +58,13 @@ function releaseArticle({ repo, release }) {
     </hgroup>
   `;
 
-  const body = markdownParse(release.body);
+  let body = markdownParse(release.body);
+
+  // Make sure to use links relevant to repo when linked with "owner/repo"
+  body = body.replaceAll(
+    "https://github.com/owner-to-be-replaced/repo-to-be-replaced/",
+    `https://github.com/${repo}/`
+  );
 
   let footer = "";
   for (const [key, value] of Object.entries(release.reactions || {})) {

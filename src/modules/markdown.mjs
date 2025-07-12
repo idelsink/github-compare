@@ -3,6 +3,7 @@ import DOMPurify from "dompurify";
 import markedAlert from "marked-alert";
 import { markedEmoji } from "marked-emoji";
 import emojis from "./emojis.mjs";
+import githubAutolinkExtension from "./marked-github-autolink-extension.mjs";
 
 // Configure marked for GitHub-flavored markdown
 marked.setOptions({
@@ -20,6 +21,12 @@ marked.use(
 );
 
 marked.use(markedAlert());
+marked.use(
+  githubAutolinkExtension({
+    // We don't know the repo here so we will replace it in another step
+    repository: "owner-to-be-replaced/repo-to-be-replaced",
+  })
+);
 
 function markdownParse(text) {
   if (!text || typeof text !== "string") {
