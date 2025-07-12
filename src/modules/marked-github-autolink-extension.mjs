@@ -6,11 +6,13 @@
 // When adding an extension, also add it to the export list
 const extensionConfigs = {
   // Mentions (@mention)
+  // Do match `@mention` ` @mention` `@mention `
+  // Don't match `foobar@mention` `@mention/xxx`
   githubMentions: {
     name: "githubMentions",
-    pattern: /@[\w.-]+/,
+    pattern: /(?:^|\s)@[\w.-]+(?!\/)(?=\s|$)/,
     tokenizer: (src) => {
-      const match = src.match(/^@([\w.-]+)/);
+      const match = src.match(/^(\s*)@([\w.-]+)(?!\/)(?=\s|$)/);
       return match
         ? {
             type: "githubMentions",
