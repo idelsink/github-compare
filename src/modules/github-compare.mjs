@@ -8,13 +8,15 @@ import {
   compareHeader,
   placeholderArticle,
 } from "./html-templates.mjs";
+import PicoSearchBox from "./picocss-searchbox.mjs";
 
 const octokit = new Octokit({});
 
 const settings = {
+  selectors: {
+    repo: "input[name=repo]",
+  },
   elements: {
-    repo: document.querySelector("input[name=repo]"),
-    repos: document.querySelector("datalist[id=repos]"),
     from: document.querySelector("select[name=from]"),
     to: document.querySelector("select[name=to]"),
     compareButton: document.querySelector("input[name=compare]"),
@@ -29,11 +31,12 @@ function init(settings_ = {}) {
   Object.assign(settings, settings_);
   setupEventListeners();
   initUrlSearchParams();
+  initRepoSearch();
   results.innerHTML = placeholderArticle();
 }
 
 function updateUrl() {
-  const repo = settings.elements.repo.value;
+  const repo = document.querySelector(settings.selectors.repo).value;
   const from = settings.elements.from.value;
   const to = settings.elements.to.value;
   const prereleases = settings.elements.showPrereleases.checked;
@@ -52,7 +55,7 @@ function initUrlSearchParams() {
   const prereleases = params.get("prereleases");
 
   if (repo) {
-    settings.elements.repo.value = repo;
+    document.querySelector(settings.selectors.repo).value = repo;
   }
   if (from) {
     settings.elements.from.add(new Option(from));
@@ -70,28 +73,10 @@ function initUrlSearchParams() {
   }
 }
 
-function setupEventListeners() {
-  let currentController = null;
-  let lastResults = [];
-  settings.elements.repo.addEventListener(
-    "input",
-    debounce(async (e) => {
-      const query = e.target.value.trim();
-      currentController?.abort(); // Cancel previous request if it exists
-      if (!query) return; // Don't search for empty queries
-
-      const currentRepos = Array.from(settings.elements.repos.options);
-
-      // If the value matches an option, user likely selected from list
-      if (currentRepos.some((option) => option.value === query)) {
-        console.log("Selected option", query);
-        settings.elements.from.value = "";
-        settings.elements.to.value = "";
-        await getReleases();
-        return;
-      }
-
-      currentController = new AbortController();
+function initRepoSearch() {
+  const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+  new PicoSearchBox(settings.selectors.repo, {
+    data: async (query, signal) => {
       try {
         const response = await octokit.rest.search.repos({
           q: query,
@@ -99,38 +84,52 @@ function setupEventListeners() {
           order: "desc",
           per_page: 10,
           request: {
-            signal: currentController.signal,
+            signal: signal,
           },
         });
-        // Clear existing options and add new options
-        settings.elements.repos.innerHTML = "";
-        response.data.items.forEach((repo) => {
-          const option = document.createElement("option");
-          option.value = repo.full_name;
-          option.textContent = `${repo.full_name} - ${
-            repo.description || "No description"
-          }`;
-          settings.elements.repos.appendChild(option);
-        });
-        // Clear controller since request completed successfully
-        currentController = null;
+        return response.data.items.map((item) => ({
+          full_name: item.full_name,
+          description: item.description,
+          value: item.full_name,
+        }));
       } catch (error) {
         if (error.name === "AbortError") {
           console.log("Request canceled for:", query);
         } else {
           console.error("Search error:", error);
         }
-        currentController = null;
       }
-    }, 250)
-  );
-  // Compare button
+    },
+    itemListContent: (item) => {
+      const strLen = 40;
+      const title = item.full_name;
+      let description = "";
+      if (item.description && item.description.length > 0) {
+        description = item.description.slice(0, strLen);
+        description += item.description.length > strLen ? "..." : "";
+      }
+      return `
+        ${title}<br/>
+        <small>${description}</small>
+      `;
+    },
+    minChars: 1,
+    debounce: 350,
+    onSelect: (item) => {
+      getReleases();
+    },
+  });
+}
+
+function setupEventListeners() {
   settings.elements.compareButton.addEventListener("click", compare);
 }
 
 async function getReleases() {
-  const owner = settings.elements.repo.value.split("/")[0] || "";
-  const repo = settings.elements.repo.value.split("/")[1] || "";
+  const owner =
+    document.querySelector(settings.selectors.repo).value.split("/")[0] || "";
+  const repo =
+    document.querySelector(settings.selectors.repo).value.split("/")[1] || "";
 
   if (!owner || !repo) return;
 
@@ -185,7 +184,7 @@ async function getReleases() {
 }
 
 async function compare() {
-  const repo = settings.elements.repo.value.trim();
+  const repo = document.querySelector(settings.selectors.repo).value.trim();
   const fromTag = settings.elements.from.value;
   const toTag = settings.elements.to.value;
   const results = settings.elements.results;
@@ -198,7 +197,9 @@ async function compare() {
   }
 
   console.log(
-    `Compare ${settings.elements.repo.value} from ${settings.elements.from.value} to ${settings.elements.to.value}`
+    `Compare ${document.querySelector(settings.selectors.repo).value} from ${
+      settings.elements.from.value
+    } to ${settings.elements.to.value}`
   );
   updateUrl();
   results.innerHTML = `<article aria-busy="true"></article>`;

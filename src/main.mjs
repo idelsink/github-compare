@@ -1,6 +1,7 @@
 import "@picocss/pico";
 import "./styles/picocss-modifications.css";
 import "./styles/alerts.css";
+import "./styles/picocss-searchbox.css";
 import "./styles/badges.css";
 import "./styles/avatar.css";
 import "./styles/marked-alerts.css";

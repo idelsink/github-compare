@@ -35,15 +35,15 @@
 
       <section>
         <fieldset class="grid">
-          <input
-            name="repo"
-            id="repo-input"
-            placeholder="owner/repo"
-            aria-label="Repository"
-            autocomplete="off"
-            list="repos"
-          />
-          <datalist id="repos"> </datalist>
+          <div class="pico-searchbox">
+            <input
+              name="repo"
+              type="text"
+              placeholder="owner/repo"
+              aria-label="Repository"
+              autocomplete="off"
+            />
+          </div>
           <select name="from" aria-label="Select your version" required>
             <option selected disabled value="">
               No versions available...

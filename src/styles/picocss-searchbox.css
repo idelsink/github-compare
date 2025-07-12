@@ -1,0 +1,50 @@
+/* PicoSearchBox - Minimal searchbox module */
+.pico-searchbox {
+  position: relative;
+  width: 100%;
+}
+
+.pico-searchbox input {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.pico-searchbox-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--pico-form-element-background-color);
+  border: var(--pico-border-width) solid var(--pico-form-element-border-color);
+  border-radius: var(--pico-border-radius);
+  color: var(--pico-form-element-color);
+  box-shadow: var(--pico-box-shadow);
+  z-index: 999;
+  max-height: 300px;
+  overflow-y: auto;
+  display: none;
+}
+
+.pico-searchbox-item {
+  padding: var(--pico-spacing);
+  cursor: pointer;
+}
+
+.pico-searchbox-item:hover,
+.pico-searchbox-item.selected {
+  background: var(--pico-primary-background);
+  color: var(--pico-primary-inverse);
+}
+
+/* Loading indicator */
+.pico-searchbox-loading {
+  padding: var(--pico-spacing);
+  text-align: center;
+  color: var(--pico-muted-color);
+}
+
+.pico-searchbox-empty {
+  padding: var(--pico-spacing);
+  color: var(--pico-muted-color);
+  font-style: italic;
+}
