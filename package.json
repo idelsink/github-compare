@@ -10,7 +10,7 @@
   },
   "devDependencies": {
     "prettier": "3.5.3",
-    "vite": "^6.3.5"
+    "vite": "6.3.5"
   },
   "dependencies": {
     "@github/relative-time-element": "^4.4.8",
